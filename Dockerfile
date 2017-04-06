@@ -2,7 +2,7 @@ FROM debian:jessie
 
 LABEL maintainer "NOS Inovação"
 
-ENV NGINX_VERSION release-1.11.3
+ENV NGINX_VERSION release-1.11.13
 
 # Use jessie-backports for openssl >= 1.0.2
 # This is required by nginx-auth-ldap when ssl_check_cert is turned on.
@@ -37,6 +37,7 @@ RUN mkdir /var/log/nginx \
 		--pid-path=/var/log/nginx/nginx.pid \ 
 		--error-log-path=/var/log/nginx/error.log \ 
 		--http-log-path=/var/log/nginx/access.log \ 
+		--with-stream \
 	&& make install \
 	&& cd .. \
 	&& rm -rf nginx-auth-ldap \
