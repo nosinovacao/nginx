@@ -1,13 +1,13 @@
-[![](https://images.microbadger.com/badges/image/h3nrik/nginx-ldap.svg)](http://microbadger.com/images/h3nrik/nginx-ldap "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/h3nrik/nginx-ldap.svg)](http://microbadger.com/images/h3nrik/nginx-ldap "Get your own version badge on microbadger.com")
-# ![NGINX logo](https://raw.github.com/g17/nginx-ldap/master/images/NginxLogo.gif)
+[![](https://images.microbadger.com/badges/image/nosinovacao/nginx.svg)](https://hub.docker.com/r/nosinovacao/nginx/ "nosinovacao/nginx on docker hub") [![](https://images.microbadger.com/badges/version/nosinovacao/nginx.svg)](https://hub.docker.com/r/nosinovacao/nginx/ "nosinovacao/nginx on docker hub")
+# ![NGINX logo](https://raw.github.com/nosinovacao/nginx/master/images/NginxLogo.gif)
 
 ## Introduction
 
-The intention to create this Dockerfile was to provide an [NGINX web server](https://github.com/nginx/nginx) with builtin [LDAP support](https://github.com/kvspb/nginx-auth-ldap) and SSL. That can be used as a reverse proxy to a private [Docker registry](https://github.com/docker/docker-registry) which authenticates the users against an LDAP or Active Directory user directory.
+The intention to create this Dockerfile was to provide an [NGINX web server](https://github.com/nginx/nginx) with builtin [LDAP support](https://github.com/kvspb/nginx-auth-ldap), SSL and [TCP Stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html) built-in. That can be used as a reverse proxy to a private [Docker registry](https://github.com/docker/docker-registry) which authenticates the users against an LDAP or Active Directory user directory.
 
-The sources including the configuration sample files can be found at [GitHub](https://github.com/g17/nginx-ldap).
+The sources including the configuration sample files can be found at [GitHub](https://github.com/nosinovacao/nginx).
 
-The docker image can be downloaded from [Docker Hub](https://registry.hub.docker.com/u/h3nrik/nginx-ldap/).
+The docker image can be downloaded from [Docker Hub](https://hub.docker.com/r/nosinovacao/nginx/).
 
 ## Usage
 
@@ -16,13 +16,13 @@ The docker image can be downloaded from [Docker Hub](https://registry.hub.docker
 The following container will provide the NGINX static default page:
 
 
-	docker run --name nginx -d -p 80:80 h3nrik/nginx-ldap
+	docker run --name nginx -d -p 80:80 nosinovacao/nginx
 
 
 To run an instance with your own static page run:
 
 
-	docker run --name nginx -v /some/content:/usr/local/nginx/html:ro -d -p 80:80 h3nrik/nginx-ldap
+	docker run --name nginx -v /some/content:/usr/local/nginx/html:ro -d -p 80:80 nosinovacao/nginx
 
 
 ### Setting up an LDAP container
@@ -35,7 +35,7 @@ Follow these steps to set up an LDAP test container:
 
 		docker run -e LDAP_DOMAIN=example.com -e LDAP_ORGANIZATION="Example Ltd." -e LDAP_ROOTPASS=toor --name ldap -d -p 389:389 nickstenning/slapd
 
-2. Add some sample groups and users to that LDAP directory. You can find a [sample ldif file](https://github.com/g17/nginx-ldap/blob/master/config/sample.ldif) in the config folder.
+2. Add some sample groups and users to that LDAP directory. You can find a [sample ldif file](https://github.com/nosinovacao/nginx/blob/master/config/sample.ldif) in the config folder.
 
 		ldapadd -v -h <your-ip>:389 -c -x -D cn=admin,dc=example,dc=com -W -f config/sample.ldif
 
@@ -49,9 +49,9 @@ Now the LDAP container is ready to be used.
 
 The following instructions create an NGINX container that provides a static page authenticating against LDAP:
 
-1. Create an NGINX Docker container with an nginx.conf file that has LDAP authentication enabled. You can find a sample [nginx.conf](https://github.com/g17/nginx-ldap/blob/master/config/basic/nginx.conf) file in the config folder that provides the static default NGINX welcome page.
+1. Create an NGINX Docker container with an nginx.conf file that has LDAP authentication enabled. You can find a sample [nginx.conf](https://github.com/nosinovacao/nginx/blob/master/config/basic/nginx.conf) file in the config folder that provides the static default NGINX welcome page.
 
-		docker run --name nginx --link ldap:ldap -d -v `pwd`/config/nginx.conf:/etc/nginx/nginx.conf:ro -p 80:80 h3nrik/nginx-ldap
+		docker run --name nginx --link ldap:ldap -d -v `pwd`/config/nginx.conf:/etc/nginx/nginx.conf:ro -p 80:80 nosinovacao/nginx
 
 2. When you now access the NGINX server via port 80 you will get an authentication dialog. The user name for the test user is *test* and the password is *t3st*.
 
@@ -73,9 +73,9 @@ Now as we have a running registry we can configure our NGINX authentication prox
 
 1. Add a valid SSL certificate to a local folder (e.g. /ssl/cert/path) to be mounted as a volume into the proxy server later. It must be a valid one known by a trusted CA! The certificate file itself must be named *docker-registry.crt* and the private key file *docker-registry.key*.
 
-2. Create a Docker container for the NGINX proxy. The used sample configuration can be found [in the config/proxy folder](https://github.com/g17/nginx-ldap/tree/master/config/proxy).
+2. Create a Docker container for the NGINX proxy. The used sample configuration can be found [in the config/proxy folder](https://github.com/nosinovacao/nginx/tree/master/config/proxy).
 
-		docker run --name nginx --link ldap:ldap --link registry:docker-registry -v /ssl/cert/path:/etc/ssl/docker:ro -v `pwd`/config/proxy:/etc/nginx:ro -p 80:80 -p 443:443 -p 5000:5000 -d h3nrik/nginx-ldap
+		docker run --name nginx --link ldap:ldap --link registry:docker-registry -v /ssl/cert/path:/etc/ssl/docker:ro -v `pwd`/config/proxy:/etc/nginx:ro -p 80:80 -p 443:443 -p 5000:5000 -d nosinovacao/nginx
 
 Theoretically you could also use self-signed certificates. Therefore the Docker daemon need to be started with the *--insecure-registry* command line parameter. But this is not recommended.
 

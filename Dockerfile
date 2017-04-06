@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER Henrik Sachse <t3x7m3@posteo.de>
+LABEL maintainer "NOS Inovação"
 
 ENV NGINX_VERSION release-1.11.3
 
