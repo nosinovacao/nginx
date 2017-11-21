@@ -37,8 +37,8 @@ RUN mkdir /var/log/nginx \
 		--pid-path=/var/log/nginx/nginx.pid \ 
 		--error-log-path=/var/log/nginx/error.log \ 
 		--http-log-path=/var/log/nginx/access.log \
-		--with-http_stub_status_module \ 
 		--with-stream \
+		--with-http_stub_status_module \ 
 	&& make install \
 	&& cd .. \
 	&& rm -rf nginx-auth-ldap \
