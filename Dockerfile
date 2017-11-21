@@ -36,7 +36,8 @@ RUN mkdir /var/log/nginx \
 		--sbin-path=/usr/sbin/nginx \ 
 		--pid-path=/var/log/nginx/nginx.pid \ 
 		--error-log-path=/var/log/nginx/error.log \ 
-		--http-log-path=/var/log/nginx/access.log \ 
+		--http-log-path=/var/log/nginx/access.log \
+		--with-http_stub_status_module \ 
 		--with-stream \
 	&& make install \
 	&& cd .. \

@@ -3,7 +3,7 @@
 
 ## Introduction
 
-The intention to create this Dockerfile was to provide an [NGINX web server](https://github.com/nginx/nginx) with builtin [LDAP support](https://github.com/kvspb/nginx-auth-ldap), SSL and [TCP Stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html) built-in. That can be used as a reverse proxy to a private [Docker registry](https://github.com/docker/docker-registry) which authenticates the users against an LDAP or Active Directory user directory.
+The intention to create this Dockerfile was to provide an [NGINX web server](https://github.com/nginx/nginx) with builtin [LDAP support](https://github.com/kvspb/nginx-auth-ldap), SSL, [TCP Stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html) and [Stub Status] (http://nginx.org/en/docs/http/ngx_http_stub_status_module.html) built-in. That can be used as a reverse proxy to a private [Docker registry](https://github.com/docker/docker-registry) which authenticates the users against an LDAP or Active Directory user directory.
 
 The sources including the configuration sample files can be found at [GitHub](https://github.com/nosinovacao/nginx).
 
