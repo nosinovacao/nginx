@@ -8,10 +8,10 @@ The intention to create this Dockerfile was to provide an [NGINX web server](htt
 The sources including the configuration sample files can be found at [GitHub](https://github.com/nosinovacao/nginx).
 
 -Supported Modules
- -SSL
- -[TCP Stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html)
- -[Stub Status](http://nginx.org/en/docs/http/ngx_http_stub_status_module.html)
- -[VST](https://github.com/vozlt/nginx-module-vts)
+ - SSL
+ - [TCP Stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html)
+ - [Stub Status](http://nginx.org/en/docs/http/ngx_http_stub_status_module.html)
+ - [VST](https://github.com/vozlt/nginx-module-vts)
 
 The docker image can be downloaded from [Docker Hub](https://hub.docker.com/r/nosinovacao/nginx/).
 
