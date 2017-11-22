@@ -40,7 +40,7 @@ RUN mkdir /var/log/nginx \
 		--http-log-path=/var/log/nginx/access.log \
 		--with-stream \
 		--with-http_stub_status_module \
-		--add-module=/root/nginx-module-vts
+		--add-module=/root/nginx-module-vts \
 	&& make install \
 	&& cd .. \
 	&& rm -rf nginx-auth-ldap \
