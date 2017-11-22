@@ -26,6 +26,7 @@ RUN mkdir /var/log/nginx \
 	&& cd ~ \
 	&& git clone https://github.com/kvspb/nginx-auth-ldap.git \
 	&& git clone https://github.com/nginx/nginx.git \
+	&& git clone https://github.com/vozlt/nginx-module-vts.git \
 	&& cd ~/nginx \
 	&& git checkout tags/${NGINX_VERSION} \
 	&& ./auto/configure \
@@ -38,11 +39,13 @@ RUN mkdir /var/log/nginx \
 		--error-log-path=/var/log/nginx/error.log \ 
 		--http-log-path=/var/log/nginx/access.log \
 		--with-stream \
-		--with-http_stub_status_module \ 
+		--with-http_stub_status_module \
+		--add-module=/root/nginx-module-vts
 	&& make install \
 	&& cd .. \
 	&& rm -rf nginx-auth-ldap \
 	&& rm -rf nginx \
+	&& rm -rf nginx-module-vts \
 	&& wget -O /tmp/dockerize.tar.gz https://github.com/jwilder/dockerize/releases/download/v0.0.4/dockerize-linux-amd64-v0.0.4.tar.gz \
 	&& tar -C /usr/local/bin -xzvf /tmp/dockerize.tar.gz \
 	&& rm -rf /tmp/dockerize.tar.gz
